@@ -57,7 +57,6 @@ Draft state is kept in memory keyed by `call.id`; after `create_ticket` succeeds
 | `FRONTEND_URL`     | No       | Allowed CORS origin (default `http://localhost:3001`). |
 | `VAPI_API_KEY`     | Yes      | VAPI API key (dashboard or CLI). |
 | `VAPI_BASE_URL`    | Yes      | Public base URL of this backend (e.g. ngrok: `https://abc123.ngrok-free.app`). Used for webhook URL. |
-| `VAPI_ASSISTANT_ID`| No       | If set, use this assistant; otherwise one is created on first session start. |
 
 Copy `.env.example` to `.env` and fill in values.
 
