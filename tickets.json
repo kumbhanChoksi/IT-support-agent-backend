@@ -1,0 +1,22 @@
+[
+  {
+    "id": "TIX-1770189484129",
+    "name": "John Miller",
+    "email": "john@gmail.com",
+    "phone": "+9191123456789",
+    "address": "502 Street Ahmedabad, Gujarat",
+    "issue": "wifi_not_working",
+    "price": 20,
+    "created_at": "2026-02-04T07:18:04.129Z"
+  },
+  {
+    "id": "TIX-1770190752326",
+    "name": "Gohn Miller",
+    "email": "john@gmail.com",
+    "phone": "+91 23456789",
+    "address": "Ahmedabad Gujarat",
+    "issue": "wifi_not_working",
+    "price": 20,
+    "created_at": "2026-02-04T07:39:12.327Z"
+  }
+]

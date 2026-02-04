@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+
+node_modules/
+
+dist/
+*.tsbuildinfo
+
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.DS_Store
+
