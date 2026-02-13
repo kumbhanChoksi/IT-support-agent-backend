@@ -12,8 +12,11 @@ const PRICE_MAP: Record<string, number> = {
 export async function handleVapiWebhook(req: Request, res: Response) {
   try {
     const payload = req.body.message ?? req.body;
+
     const { type, toolCalls, call } = payload;
     const callId = call?.id;
+
+    console.log('type', type);
 
     if (type === 'assistant.ended' || type === 'call.ended') {
       if (callId) deleteDraft(callId);
@@ -21,6 +24,7 @@ export async function handleVapiWebhook(req: Request, res: Response) {
     }
 
     if (type === 'tool-calls') {
+
       if (!callId) return res.status(200).json({ ok: true });
 
       const results: { toolCallId: string; result: unknown }[] = [];
@@ -30,6 +34,8 @@ export async function handleVapiWebhook(req: Request, res: Response) {
 
         switch (name) {
           case 'edit_ticket':
+            console.log('edit_ticket called');
+            console.log('args', args);
             updateDraft(callId, { ...getDraft(callId), ...(args ?? {}) });
             results.push({
               toolCallId: toolCall.id,
@@ -41,6 +47,8 @@ export async function handleVapiWebhook(req: Request, res: Response) {
             break;
 
           case 'create_ticket': {
+            console.log('create_ticket called');
+            console.log('args', args);
             const draft = { ...getDraft(callId), ...(args ?? {}) };
             const finalData: TicketRecord = {
               id: `TIX-${Date.now()}`,

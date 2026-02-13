@@ -23,6 +23,12 @@ function ticketToRecord(t: Ticket): TicketRecord {
   };
 }
 
+const DRAFT_META = { __exists: true } as const;
+
+function ensureDraftShape(callId: string, data: Record<string, unknown>): Record<string, unknown> {
+  return { ...data, id: callId, ...DRAFT_META };
+}
+
 const drafts = new Map<string, Record<string, unknown>>();
 
 async function loadTickets(): Promise<TicketRecord[]> {
@@ -65,14 +71,24 @@ export async function updateTicket(
 }
 
 export function updateDraft(callId: string, data: Record<string, unknown>): void {
-  const current = drafts.get(callId) ?? {};
-  drafts.set(callId, { ...current, ...data });
+  const isNew = !drafts.has(callId);
+  if (isNew) {
+    console.log('[MEMORY] new callId added', { callId });
+  }
+  const current = drafts.get(callId) ?? ensureDraftShape(callId, {});
+  console.log('[MEMORY] before update', { callId, draft: { ...current } });
+  const next = ensureDraftShape(callId, { ...current, ...data });
+  drafts.set(callId, next);
+  console.log('[MEMORY] after update', { callId, draft: { ...next } });
 }
 
 export function getDraft(callId: string): Record<string, unknown> {
   return drafts.get(callId) ?? {};
 }
 
+
 export function deleteDraft(callId: string): void {
+  const current = drafts.get(callId) ?? {};
   drafts.delete(callId);
+  console.log('[MEMORY] draft cleared', { callId, previousDraft: { ...current } });
 }

@@ -16,7 +16,7 @@ export const createTicketSchema = z.object({
 });
 
 export const editTicketSchema = z.object({
-  id: z.string().min(1, 'ID is required'),
+  id: z.string().optional(),
   name: z.string().min(1).optional(),
   phone: z.string().min(1).optional(),
   address: z.string().min(1).optional(),

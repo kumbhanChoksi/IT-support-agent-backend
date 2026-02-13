@@ -16,7 +16,7 @@ const client = new VapiClient({
 const assistantConfig: Vapi.CreateAssistantDto = {
   transcriber: {
     provider: 'deepgram',
-    model: 'nova-2',
+    model: 'nova-3',
     language: 'en',
     smartFormat: true,
     keywords: ['Alex:2', 'Rhys:3', 'plumbing:2'], 
@@ -44,6 +44,8 @@ const assistantConfig: Vapi.CreateAssistantDto = {
   }
 };
 
+console.log(assistantConfig.model?.tools);
+
 export interface CreateSessionResult {
   id: string;
   assistantId: string;
@@ -52,6 +54,7 @@ export interface CreateSessionResult {
 
 export async function initializeAssistant(): Promise<void> {
   const assistant = await client.assistants.create(assistantConfig);
+
   ASSISTANT_ID = assistant.id;
   console.log('Assistant ID:', ASSISTANT_ID);
 }
